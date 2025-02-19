@@ -24,14 +24,14 @@ export const dashboard = async (req, res) => {
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const luckyNumber = Math.floor(Math.random() * 100);
+    res.status(200).json({
+      msg: `Hello, ${decoded.username}`,
+      secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
+    });
     console.log(decoded);
   } catch (error) {
     return res.status(401).json({ msg: `You are not authorized` });
   }
   console.log(token)
-  const luckyNumber = Math.floor(Math.random() * 100);
-  res.status(200).json({
-    msg: `Hello, John Doe`,
-    secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
-  });
 };
